@@ -1,9 +1,10 @@
 // db.js
+require('dotenv').config();
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/graphqlcrud", {
+    await mongoose.connect("process.env.MONGOURI", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
