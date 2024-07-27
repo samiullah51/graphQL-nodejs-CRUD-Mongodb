@@ -32,13 +32,13 @@ const RootQuery = new GraphQLObjectType({
     item: {
       type: ItemType,
       args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
+      resolve(_, args) {
         return Item.findById(args.id);
       },
     },
     items: {
       type: new GraphQLList(ItemType),
-      resolve(parent, args) {
+      resolve(_, args) {
         return Item.find({});
       },
     },
@@ -55,7 +55,7 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         description: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      resolve(_, args) {
         const item = new Item({
           name: args.name,
           description: args.description,
@@ -70,7 +70,7 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         description: { type: GraphQLString },
       },
-      resolve(parent, args) {
+      resolve(_, args) {
         return Item.findByIdAndUpdate(
           args.id,
           {
@@ -86,7 +86,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
       },
-      resolve(parent, args) {
+      resolve(_, args) {
         return Item.findByIdAndDelete(args.id).then(() => {
           return { message: "Item deleted successfully" };
         });
